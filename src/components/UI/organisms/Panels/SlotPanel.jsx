@@ -1,6 +1,6 @@
 import { Container, Grid } from '@mui/material'
 import React from 'react'
-import SlotCard from '../SlotCard'
+import SlotCard from '../../molecules/SlotCard'
 
 const SlotPanel = ({ slots }) => {
     return (

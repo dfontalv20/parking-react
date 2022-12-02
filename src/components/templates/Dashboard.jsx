@@ -2,7 +2,7 @@ import { DirectionsCarFilled, Person, Settings } from '@mui/icons-material'
 import { Grid } from '@mui/material'
 import { Box } from '@mui/system'
 import React, { useState } from 'react'
-import VerticalMenu from '../UI/organisms/VerticalMenu'
+import VerticalMenu from '../UI/molecules/VerticalMenu'
 
 const Dashboard = props => {
 
