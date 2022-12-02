@@ -58,11 +58,8 @@ const MainPage = () => {
         },
         {
             id: 1,
-            number: 1,
-            current: {
-                car: 'Honda Civic',
-                personName: 'Diego Andrés'
-            }
+            number: 6,
+            current: null
         },
     ]
 
