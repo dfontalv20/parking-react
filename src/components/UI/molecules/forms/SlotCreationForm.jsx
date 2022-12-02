@@ -8,8 +8,8 @@ import {
 import React, { useState } from "react";
 import useClients from "../../../../hooks/useClients";
 
-const SlotCreationForm = ({ onConfirm, onCancel }) => {
-  const [form, setForm] = useState({
+const SlotCreationForm = ({ onConfirm, onCancel, slot}) => {
+  const [form, setForm] = useState(slot ?? {
     number: '',
     client: null,
   });
@@ -59,7 +59,7 @@ const SlotCreationForm = ({ onConfirm, onCancel }) => {
           />
         </Grid>
         <Grid item xs={12} display="flex" justifyContent="space-evenly">
-          <Button type='submit'>Agregar</Button>
+          <Button type='submit'>Guardar</Button>
           <Button onClick={onCancel}>Cancelar</Button>
         </Grid>
       </Grid>

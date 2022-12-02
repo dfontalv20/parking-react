@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { create, getAll, occupy, vacate } from "../../services/Slot.service";
+import {
+  create,
+  getAll,
+  occupy,
+  vacate,
+  remove,
+  update,
+} from "../../services/Slot.service";
 import AddButton from "../UI/atoms/AddButton";
 import BaseModal from "../UI/atoms/modal/BaseModal";
 import SlotCreationForm from "../UI/molecules/forms/SlotCreationForm";
@@ -12,6 +19,7 @@ const SlotPage = () => {
   const [openSlotOccupyModal, setOpenSlotOccupyModal] = useState(false);
   const [openSlotCreationModal, setOpenSlotCreationModal] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState(null);
+  const [updating, setUpdating] = useState(false);
   const [slots, setSlots] = useState([]);
 
   useEffect(() => {
@@ -54,20 +62,43 @@ const SlotPage = () => {
 
   const handleSlotCreation = async (data) => {
     try {
-        await create({
-            number: data.number,
-            clientId: data.client?.id ?? null
-        })
-        loadSlots()
-        setOpenSlotCreationModal(false)
+      const slotData = {
+        number: data.number,
+        clientId: data.client?.id ?? null,
+      };
+      updating
+        ? await update(data.id, slotData)
+        : await create(slotData);
+      loadSlots();
+      setOpenSlotCreationModal(false);
     } catch (error) {
-        alert(error.response.data.error)
+      alert(error.response.data.error);
+    }
+  };
+
+  const handleSlotDeletion = async (data) => {
+    try {
+      const res = confirm("¿Esta seguro que quiere eliminar esta plaza?");
+      if (!res) return;
+      await remove(data.id);
+      loadSlots();
+    } catch (error) {
+      alert(error.response.data.error);
     }
   };
 
   return (
     <>
-      <SlotPanel slots={slots} onSlotSelected={handleSlotSelection} />
+      <SlotPanel
+        slots={slots}
+        onSlotSelected={handleSlotSelection}
+        onSlotDelete={handleSlotDeletion}
+        onSlotEdit={(data) => {
+          setSelectedSlot(data);
+          setUpdating(true);
+          setOpenSlotCreationModal(true);
+        }}
+      />
       <SlotVacateModal
         open={openSlotVacateModal}
         onCancel={() => setOpenSlotVacateModal(false)}
@@ -95,7 +126,11 @@ const SlotPage = () => {
       >
         <SlotCreationForm
           onConfirm={handleSlotCreation}
-          onCancel={() => setOpenSlotCreationModal(false)}
+          slot={selectedSlot}
+          onCancel={() => {
+            setOpenSlotCreationModal(false);
+            setUpdating(false);
+          }}
         />
       </BaseModal>
       <AddButton onClick={() => setOpenSlotCreationModal(true)} />
