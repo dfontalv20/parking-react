@@ -1,10 +1,8 @@
-import { useState } from 'react'
+import MainPage from './components/pages/MainPage'
 
 function App() {
   return (
-    <h1>
-      Parking
-    </h1>
+    <MainPage />
   )
 }
 
