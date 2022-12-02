@@ -23,6 +23,7 @@ const SlotCard = props => {
                     </Box>
                     <Box style={{ textAlign: 'center' }}>
                         <Typography variant='h5'>{slot.current?.car ?? 'Libre'}</Typography>
+                        <Typography variant='subtitle2' marginBottom={1}>{slot.current?.plate ?? ''}</Typography>
                         <Typography variant='subtitle1'>{slot.current?.personName ?? ''}</Typography>
                     </Box>
                 </CardContent>
