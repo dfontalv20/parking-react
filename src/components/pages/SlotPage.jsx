@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getAll, vacate } from '../../services/Slot.service'
+import { getAll, occupy, vacate } from '../../services/Slot.service'
 import SlotOccupyModal from '../UI/molecules/modals/SlotOccupyModal'
 import SlotVacateModal from '../UI/molecules/modals/SlotVacateModal'
 import SlotPanel from '../UI/organisms/Panels/SlotPanel'
@@ -38,6 +38,17 @@ const SlotPage = () => {
         }
     }
 
+    const occupySlot = async (id, data) => {
+        try {
+            setOpenSlotOccupyModal(false)
+            await occupy(id, data)
+            loadSlots()
+        } catch (error) {
+            console.error(error);
+            alert(error.response.data.error)
+        }
+    }
+
     return (
         <>
             <SlotPanel slots={slots} onSlotSelected={handleSlotSelection} />
@@ -48,9 +59,16 @@ const SlotPage = () => {
                 onConfirm={() => vacateSlot(selectedSlot.id)} />
             <SlotOccupyModal
                 open={openSlotOccupyModal}
+                slot={selectedSlot}
                 onCancel={() => setOpenSlotOccupyModal(false)}
                 onClose={() => setOpenSlotOccupyModal(false)}
-                onConfirm={() => alert('Ingresar vehiculo')}
+                onConfirm={(data) => occupySlot(selectedSlot.id, {
+                    car: `${data.carBrand} ${data.carModel}`,
+                    personName: data.personName,
+                    phone: data.phone,
+                    plate: data.plate,
+                    color: data.color
+                })}
             />
         </>
 

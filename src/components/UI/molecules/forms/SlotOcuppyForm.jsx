@@ -24,7 +24,7 @@ const SlotOcuppyForm = props => {
 
 
     const handleSubmit = e => {
-        e.prevenDefault()
+        e.preventDefault()
         e.stopPropagation()
         onConfirm(form)
     }
@@ -41,7 +41,7 @@ const SlotOcuppyForm = props => {
                         value={slot?.client?.name ?? form.personName}
                         onChange={e => handleChange(e.target.value, 'personName')}
                         fullWidth
-                        disabled={slot?.client}
+                        aria-readonly={slot?.client?.name}
                         required />
                 </Grid>
                 <Grid item xs={6}>
@@ -49,7 +49,7 @@ const SlotOcuppyForm = props => {
                         value={slot?.client?.phone ?? form.phone}
                         onChange={e => handleChange(e.target.value, 'phone')}
                         type={'number'}
-                        disabled={slot?.client}
+                        aria-readonly={slot?.client?.phone}
                         fullWidth
                         inputProps={{ max: 9999999999 }}
                         required
@@ -90,7 +90,7 @@ const SlotOcuppyForm = props => {
                     />
                 </Grid>
                 <Grid item xs={12} display='flex' justifyContent='space-evenly'>
-                    <Button onClick={onConfirm}>Confirmar</Button>
+                    <Button type='submit'>Confirmar</Button>
                     <Button onClick={onCancel}>Cancelar</Button>
                 </Grid>
             </Grid>
