@@ -1,9 +1,6 @@
 import { DirectionsCarFilled, Person, Settings } from '@mui/icons-material'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Dashboard from '../templates/Dashboard'
-import SlotOccupyModal from '../UI/molecules/modals/SlotOccupyModal'
-import SlotVacateModal from '../UI/molecules/modals/SlotVacateModal'
-import SlotPanel from '../UI/organisms/Panels/SlotPanel'
 import SlotPage from './SlotPage'
 
 const MainPage = () => {
