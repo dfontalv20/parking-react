@@ -1,6 +1,7 @@
 import { DirectionsCarFilled, Person, Settings } from '@mui/icons-material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Dashboard from '../templates/Dashboard'
+import SlotOccupyModal from '../UI/molecules/modals/SlotOccupyModal'
 import SlotVacateModal from '../UI/molecules/modals/SlotVacateModal'
 import SlotPanel from '../UI/organisms/Panels/SlotPanel'
 
@@ -8,6 +9,7 @@ const MainPage = () => {
 
     const [selectedOption, setSelectedOption] = useState(0)
     const [openSlotVacateModal, setOpenSlotVacateModal] = useState(false)
+    const [openSlotOccupyModal, setOpenSlotOccupyModal] = useState(false)
 
     const menuOptions = [
         { label: "PLAZAS", icon: <DirectionsCarFilled /> },
@@ -69,24 +71,31 @@ const MainPage = () => {
         if (slot.current) {
             return setOpenSlotVacateModal(true)
         }
+        return setOpenSlotOccupyModal(true)
     }
 
     return (
-            <Dashboard
-                menu={{
-                    options: menuOptions,
-                    selected: selectedOption,
-                    onMenuChange: (e, value) => setSelectedOption(value)
-                }}
-                slots={slots}
-            >
-                <SlotPanel slots={slots} onSlotSelected={handleSlotSelection} />
-                <SlotVacateModal
+        <Dashboard
+            menu={{
+                options: menuOptions,
+                selected: selectedOption,
+                onMenuChange: (e, value) => setSelectedOption(value)
+            }}
+            slots={slots}
+        >
+            <SlotPanel slots={slots} onSlotSelected={handleSlotSelection} />
+            <SlotVacateModal
                 open={openSlotVacateModal}
                 onCancel={() => setOpenSlotVacateModal(false)}
                 onClose={() => setOpenSlotVacateModal(false)}
                 onConfirm={() => alert('Liberar')} />
-            </Dashboard>
+            <SlotOccupyModal
+                open={openSlotOccupyModal}
+                onCancel={() => setOpenSlotOccupyModal(false)}
+                onClose={() => setOpenSlotOccupyModal(false)}
+                onConfirm={() => alert('Ingresar vehiculo')}
+            />
+        </Dashboard>
     )
 }
 

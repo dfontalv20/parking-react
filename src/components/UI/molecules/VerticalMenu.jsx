@@ -17,7 +17,7 @@ const VerticalMenu = props => {
                 onChange={onChange}
                 sx={{ borderRight: 1, borderColor: 'divider' }}
             >
-                {options.map(option => <Tab label={option.label} icon={option.icon ?? <></>} iconPosition="start"/>)}
+                {options.map((option, key) => <Tab key={key} label={option.label} icon={option.icon ?? <></>} iconPosition="start"/>)}
             </Tabs>
         </Box>
 
