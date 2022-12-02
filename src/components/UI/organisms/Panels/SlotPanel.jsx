@@ -2,11 +2,15 @@ import { Container, Grid } from '@mui/material'
 import React from 'react'
 import SlotCard from '../../molecules/SlotCard'
 
-const SlotPanel = ({ slots }) => {
+const SlotPanel = ({ slots, onSlotSelected }) => {
     return (
         <Container>
             <Grid container spacing={3}>
-                {slots.map(slot => <Grid item xs={6} md={4} lg={3} display='flex'><SlotCard slot={slot} /></Grid>)}
+                {slots.map((slot, key) =>
+                    <Grid item xs={6} md={4} lg={3} key={key} display='flex'>
+                        <SlotCard slot={slot} onClick={() => onSlotSelected(slot)}/>
+                    </Grid>
+                )}
             </Grid>
         </Container>
     )

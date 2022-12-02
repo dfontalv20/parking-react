@@ -1,11 +1,13 @@
 import { DirectionsCarFilled, Person, Settings } from '@mui/icons-material'
 import React, { useState } from 'react'
 import Dashboard from '../templates/Dashboard'
+import SlotVacateModal from '../UI/molecules/modals/SlotVacateModal'
 import SlotPanel from '../UI/organisms/Panels/SlotPanel'
 
 const MainPage = () => {
 
     const [selectedOption, setSelectedOption] = useState(0)
+    const [openSlotVacateModal, setOpenSlotVacateModal] = useState(false)
 
     const menuOptions = [
         { label: "PLAZAS", icon: <DirectionsCarFilled /> },
@@ -63,17 +65,28 @@ const MainPage = () => {
         },
     ]
 
+    const handleSlotSelection = (slot) => {
+        if (slot.current) {
+            return setOpenSlotVacateModal(true)
+        }
+    }
+
     return (
-        <Dashboard
-            menu={{
-                options: menuOptions,
-                selected: selectedOption,
-                onMenuChange: (e, value) => setSelectedOption(value)
-            }}
-            slots={slots}
-        >
-            <SlotPanel slots={slots}/>
-        </Dashboard>
+            <Dashboard
+                menu={{
+                    options: menuOptions,
+                    selected: selectedOption,
+                    onMenuChange: (e, value) => setSelectedOption(value)
+                }}
+                slots={slots}
+            >
+                <SlotPanel slots={slots} onSlotSelected={handleSlotSelection} />
+                <SlotVacateModal
+                open={openSlotVacateModal}
+                onCancel={() => setOpenSlotVacateModal(false)}
+                onClose={() => setOpenSlotVacateModal(false)}
+                onConfirm={() => alert('Liberar')} />
+            </Dashboard>
     )
 }
 
