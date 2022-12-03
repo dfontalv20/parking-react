@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import useClients from "../../hooks/useClients";
-import { create, remove } from "../../services/Client.service";
+import { create, remove, update } from "../../services/Client.service";
 import BaseModal from "../UI/atoms/modal/BaseModal";
 import ClientCreationForm from "../UI/molecules/forms/ClientCreationForm";
 import ClientPanel from "../UI/organisms/Panels/ClientPanel";
 
 const ClientPage = () => {
   const [openCreationModal, setOpenCreationModal] = useState(false);
+  const [selectedClient, setSelectedClient] = useState(null);
   const { clients, refresh } = useClients();
 
   const storeClient = async (client) => {
     try {
-      await create(client);
+      selectedClient === null
+        ? await create(client)
+        : await update(selectedClient.id, client);
       refresh();
       setOpenCreationModal(false);
     } catch (error) {
@@ -35,16 +38,27 @@ const ClientPage = () => {
     <>
       <ClientPanel
         clients={clients}
+        onClientEdit={(client) => {
+          setSelectedClient(client);
+          setOpenCreationModal(true);
+        }}
         onClientCreate={storeClient}
         onClientDelete={handleClientDelete}
       />
       <BaseModal
         open={openCreationModal}
-        onClose={() => setOpenCreationModal(false)}
+        onClose={() => {
+          setSelectedClient(null);
+          setOpenCreationModal(false);
+        }}
       >
         <ClientCreationForm
+          client={selectedClient}
           onConfirm={storeClient}
-          onCancel={() => setOpenCreationModal(false)}
+          onCancel={() => {
+            setSelectedClient(null);
+            setOpenCreationModal(false);
+          }}
         />
       </BaseModal>
     </>
