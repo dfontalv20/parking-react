@@ -11,7 +11,7 @@ const SlotOcuppyForm = props => {
         carBrand: null,
         carModel: null,
         plate: '',
-        color: ''
+        color: null
     })
     const { makes, models } = useCarsData(form.carBrand)
 
@@ -66,6 +66,7 @@ const SlotOcuppyForm = props => {
                     <TextField fullWidth label='Color'
                         value={form.color}
                         onChange={e => handleChange(e.target.value, 'color')}
+                        required
                         type={'color'}
                     />
                 </Grid>
