@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { ThemeProvider } from '@mui/material'
+import MainPage from './components/pages/MainPage'
+import { themeOptions } from './styles/theme'
 
 function App() {
   return (
-    <h1>
-      Parking
-    </h1>
+    <ThemeProvider theme={themeOptions}>
+      <MainPage />
+    </ThemeProvider>
   )
 }
 
