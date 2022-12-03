@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import useClients from "../../hooks/useClients";
-import { create } from "../../services/Client.service";
+import { create, remove } from "../../services/Client.service";
 import BaseModal from "../UI/atoms/modal/BaseModal";
 import ClientCreationForm from "../UI/molecules/forms/ClientCreationForm";
 import ClientPanel from "../UI/organisms/Panels/ClientPanel";
@@ -19,11 +19,24 @@ const ClientPage = () => {
     }
   };
 
+  const handleClientDelete = async (client) => {
+    try {
+      const res = confirm("¿Esta seguro que quiere eliminar este cliente?");
+      if (res) {
+        await remove(client.id);
+        refresh();
+      }
+    } catch (error) {
+      alert(error.response?.data?.error ?? "Error al eliminar cliente");
+    }
+  };
+
   return (
     <>
       <ClientPanel
         clients={clients}
-        onClientCreate={() => setOpenCreationModal(true)}
+        onClientCreate={storeClient}
+        onClientDelete={handleClientDelete}
       />
       <BaseModal
         open={openCreationModal}

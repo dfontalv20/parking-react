@@ -7,5 +7,15 @@ export const getAll = async () => {
 }
 
 export const create = async (data) => {
-    await axios.post(`${config.host}/client`, data)
+    const res = await axios.post(`${config.host}/client`, data)
+    return res.data
+}
+
+export const update = async (id, data) => {
+    const res = await axios.put(`${config.host}/client/${id}`, data)
+    return res.data
+}
+
+export const remove = async (id) => {
+    await axios.delete(`${config.host}/client/${id}`)
 }
