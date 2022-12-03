@@ -65,7 +65,10 @@ const SlotPage = () => {
         number: data.number,
         clientId: data.client?.id ?? null,
       };
-      selectedSlot ? await update(selectedSlot.id, slotData) : await create(slotData);
+      selectedSlot === null ?
+        await create(slotData) :
+        await update(selectedSlot.id, slotData);
+      setSelectedSlot(null)
       loadSlots();
       setOpenSlotCreationModal(false);
     } catch (error) {

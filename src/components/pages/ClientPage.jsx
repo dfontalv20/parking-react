@@ -16,6 +16,7 @@ const ClientPage = () => {
         ? await create(client)
         : await update(selectedClient.id, client);
       refresh();
+      setSelectedClient(null);
       setOpenCreationModal(false);
     } catch (error) {
       alert(error.response?.data?.error ?? "Error al guardar datos");
