@@ -3,10 +3,10 @@ import React, { useState } from "react";
 
 const ClientCreationForm = ({ onConfirm, onCancel, client }) => {
   const [form, setForm] = useState(
-    client ?? {
-      number: "",
-      phone: "",
-      email: "",
+    {
+      name: client?.name ?? '',
+      phone: client?.phone ?? '',
+      email: client?.email ?? '',
     }
   );
 

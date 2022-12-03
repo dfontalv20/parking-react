@@ -22,12 +22,11 @@ const ClientTable = (props) => {
             <TableCell>Telefono</TableCell>
             <TableCell>Correo</TableCell>
             <TableCell></TableCell>
-            <TableCell></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {clients.map((client) => (
-            <TableRow>
+          {clients.map((client, key) => (
+            <TableRow key={key}>
               <TableCell>{client.name}</TableCell>
               <TableCell>{client.phone}</TableCell>
               <TableCell>{client.email}</TableCell>
@@ -35,8 +34,6 @@ const ClientTable = (props) => {
                 <IconButton onClick={() => onClientEdit(client)}>
                   <Edit />
                 </IconButton>
-              </TableCell>
-              <TableCell>
                 <IconButton onClick={() => onClientDelete(client)}>
                   <Delete />
                 </IconButton>
