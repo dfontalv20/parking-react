@@ -10,9 +10,9 @@ import useClients from "../../../../hooks/useClients";
 
 const SlotCreationForm = ({ onConfirm, onCancel, slot }) => {
   const [form, setForm] = useState(
-    slot ?? {
-      number: "",
-      client: null,
+    {
+      number: slot?.number ?? '',
+      client: slot?.client ?? null,
     }
   );
 
@@ -50,12 +50,12 @@ const SlotCreationForm = ({ onConfirm, onCancel, slot }) => {
             getOptionLabel={(option) => option.name}
             isOptionEqualToValue={(option, value) => option.id === value.id}
             value={form.client}
+            onChange={(e, value) => handleChange(value, "client")}
             renderInput={(params) => (
               <TextField
                 label="Cliente para reservar"
                 fullWidth
                 {...params}
-                onChange={(e) => handleChange(e, "clientId")}
               />
             )}
           />

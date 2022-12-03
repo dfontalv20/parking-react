@@ -19,7 +19,6 @@ const SlotPage = () => {
   const [openSlotOccupyModal, setOpenSlotOccupyModal] = useState(false);
   const [openSlotCreationModal, setOpenSlotCreationModal] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState(null);
-  const [updating, setUpdating] = useState(false);
   const [slots, setSlots] = useState([]);
 
   useEffect(() => {
@@ -66,13 +65,11 @@ const SlotPage = () => {
         number: data.number,
         clientId: data.client?.id ?? null,
       };
-      updating
-        ? await update(data.id, slotData)
-        : await create(slotData);
+      selectedSlot ? await update(selectedSlot.id, slotData) : await create(slotData);
       loadSlots();
       setOpenSlotCreationModal(false);
     } catch (error) {
-      alert(error.response.data.error);
+      alert(error.response?.data?.error ?? 'Error al guardar plaza');
     }
   };
 
@@ -83,7 +80,7 @@ const SlotPage = () => {
       await remove(data.id);
       loadSlots();
     } catch (error) {
-      alert(error.response.data.error);
+      alert(error.response?.data?.error ?? 'Error al eliminar plaza');
     }
   };
 
@@ -95,7 +92,6 @@ const SlotPage = () => {
         onSlotDelete={handleSlotDeletion}
         onSlotEdit={(data) => {
           setSelectedSlot(data);
-          setUpdating(true);
           setOpenSlotCreationModal(true);
         }}
       />
@@ -122,14 +118,17 @@ const SlotPage = () => {
       />
       <BaseModal
         open={openSlotCreationModal}
-        onClose={() => setOpenSlotCreationModal(false)}
+        onClose={() => {
+          setOpenSlotCreationModal(false);
+          setSelectedSlot(null);
+        }}
       >
         <SlotCreationForm
           onConfirm={handleSlotCreation}
           slot={selectedSlot}
           onCancel={() => {
             setOpenSlotCreationModal(false);
-            setUpdating(false);
+            setSelectedSlot(null);
           }}
         />
       </BaseModal>
