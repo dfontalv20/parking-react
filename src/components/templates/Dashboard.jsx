@@ -15,6 +15,7 @@ const Dashboard = props => {
                     options={menu.options}
                     value={menu.selected}
                     onChange={menu.onMenuChange}
+                    textTip={menu.options[menu.selected]?.description}
                 />
             </Grid>
             <Grid item xs>

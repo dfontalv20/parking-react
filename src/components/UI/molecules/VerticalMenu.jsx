@@ -4,13 +4,13 @@ import Bonzi from "../../../assets/BonziBuddy.webp";
 import React from "react";
 
 const VerticalMenu = (props) => {
-  const { value, onChange, options } = props;
+  const { value, onChange, options, textTip } = props;
 
   return (
     <Box
       width="100%"
       height="100%"
-      display={'flex'}
+      display={"flex"}
       flexGrow={1}
       flexDirection="column"
       textAlign="center"
@@ -38,8 +38,20 @@ const VerticalMenu = (props) => {
           />
         ))}
       </Tabs>
-      <Box marginTop={'auto'}>
-        <img src={Bonzi} alt="Bonzi Buddy" width={'40%'}/>
+      <Box marginTop={"auto"} flex flexDirection={"column"}>
+        <Box marginBottom={1}>
+          <Typography
+            variant="caption"
+            lineHeight={0.1}
+            color="GrayText"
+            marginBottom={6}
+          >
+            {textTip}
+          </Typography>
+        </Box>
+
+        <br />
+        <img src={Bonzi} alt="Bonzi Buddy" width={"40%"} />
       </Box>
     </Box>
   );
