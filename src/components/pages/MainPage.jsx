@@ -1,7 +1,8 @@
-import { DirectionsCarFilled, Person, Settings } from '@mui/icons-material'
+import { DirectionsCarFilled, Person, SyncAlt } from '@mui/icons-material'
 import React, { useState } from 'react'
 import Dashboard from '../templates/Dashboard'
 import ClientPage from './ClientPage'
+import MovementPage from './MovementPage'
 import SlotPage from './SlotPage'
 
 const MainPage = () => {
@@ -11,7 +12,7 @@ const MainPage = () => {
     const menuOptions = [
         { label: "PLAZAS", icon: <DirectionsCarFilled />, page: <SlotPage /> },
         { label: "CLIENTES", icon: <Person />, page: <ClientPage /> },
-        { label: "MOVIMIENTOS", icon: <Settings />, page: <div>movs</div> },
+        { label: "MOVIMIENTOS", icon: <SyncAlt />, page: <MovementPage /> },
     ]
 
     return (
