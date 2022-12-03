@@ -32,7 +32,7 @@ const SlotCreationForm = ({ onConfirm, onCancel, slot }) => {
     <form onSubmit={handleSubmit}>
       <Grid container spacing={2}>
         <Grid item xs={12} textAlign="center">
-          <Typography variant="h4">Nueva plaza</Typography>
+          <Typography variant="h4">Formulario plaza</Typography>
         </Grid>
         <Grid item xs={6}>
           <TextField
