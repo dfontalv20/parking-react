@@ -42,7 +42,7 @@ const ClientPage = () => {
           setSelectedClient(client);
           setOpenCreationModal(true);
         }}
-        onClientCreate={storeClient}
+        onClientCreate={() => setOpenCreationModal(true)}
         onClientDelete={handleClientDelete}
       />
       <BaseModal
