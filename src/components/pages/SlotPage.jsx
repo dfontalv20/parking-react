@@ -65,14 +65,14 @@ const SlotPage = () => {
         number: data.number,
         clientId: data.client?.id ?? null,
       };
-      selectedSlot === null ?
-        await create(slotData) :
-        await update(selectedSlot.id, slotData);
-      setSelectedSlot(null)
+      selectedSlot === null
+        ? await create(slotData)
+        : await update(selectedSlot.id, slotData);
+      setSelectedSlot(null);
       loadSlots();
       setOpenSlotCreationModal(false);
     } catch (error) {
-      alert(error.response?.data?.error ?? 'Error al guardar plaza');
+      alert(error.response?.data?.error ?? "Error al guardar plaza");
     }
   };
 
@@ -83,7 +83,7 @@ const SlotPage = () => {
       await remove(data.id);
       loadSlots();
     } catch (error) {
-      alert(error.response?.data?.error ?? 'Error al eliminar plaza');
+      alert(error.response?.data?.error ?? "Error al eliminar plaza");
     }
   };
 
@@ -100,15 +100,27 @@ const SlotPage = () => {
       />
       <SlotVacateModal
         open={openSlotVacateModal}
-        onCancel={() => setOpenSlotVacateModal(false)}
-        onClose={() => setOpenSlotVacateModal(false)}
+        onCancel={() => {
+          setOpenSlotVacateModal(false);
+          setSelectedSlot(null);
+        }}
+        onClose={() => {
+          setOpenSlotVacateModal(false);
+          setSelectedSlot(null);
+        }}
         onConfirm={() => vacateSlot(selectedSlot.id)}
       />
       <SlotOccupyModal
         open={openSlotOccupyModal}
         slot={selectedSlot}
-        onCancel={() => setOpenSlotOccupyModal(false)}
-        onClose={() => setOpenSlotOccupyModal(false)}
+        onCancel={() => {
+          setOpenSlotOccupyModal(false);
+          setSelectedSlot(null);
+        }}
+        onClose={() => {
+          setOpenSlotOccupyModal(false);
+          setSelectedSlot(null);
+        }}
         onConfirm={(data) =>
           occupySlot(selectedSlot.id, {
             car: `${data.carBrand} ${data.carModel}`,
