@@ -41,6 +41,7 @@ const SlotPage = () => {
     try {
       setOpenSlotVacateModal(false);
       await vacate(id);
+      setSelectedSlot(null);
       loadSlots();
     } catch (error) {
       console.error(error);
@@ -52,6 +53,7 @@ const SlotPage = () => {
     try {
       setOpenSlotOccupyModal(false);
       await occupy(id, data);
+      setSelectedSlot(null);
       loadSlots();
     } catch (error) {
       console.error(error);
